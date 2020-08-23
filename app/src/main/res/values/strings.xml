@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Psychological Situations</string>
+    <string name="situation">Situation</string>
+    <string name="idea">Idea</string>
+    <string name="emotion">Emotion</string>
+    <string name="behaviour">behaviour</string>
+    <string name="wrong_thinking">Wrong thinking</string>
+    <string name="coent">Confirming evidence of negative thought</string>
+    <string name="ceontP">Contradicting evidence of negative thought</string>
+    <string name="tdob">The degree of belief</string>
+    <string name="pd">Psychological degree</string>
+    <string name="at">Alternative thought</string>
+    <string name="save">Save</string>
+    <string name="theme">theme</string>
+</resources>
