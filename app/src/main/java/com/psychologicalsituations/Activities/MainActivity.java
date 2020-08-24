@@ -1,5 +1,6 @@
 package com.psychologicalsituations.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -38,18 +40,27 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     private RecyclerView situationRecycler;
     private SituationAdapter adapter;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private String currentLanguage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
         String language = sharedPreferences.getString(getString(R.string.language_key), "en");
         Locale current  = getResources().getConfiguration().locale;
         currentLanguage = current.getLanguage();
         if(!currentLanguage.equals(language)){
             changeLanguage(language);
             currentLanguage = language;
+        }
+        boolean isFirstTime = sharedPreferences.getBoolean("isFirstTime",true);
+
+        if(isFirstTime){
+            editor.putBoolean("isFirstTime",false);
+            firstTimeDialog();
+            editor.apply();
         }
         addFab = findViewById(R.id.add_situation_fab);
         situationRecycler = findViewById(R.id.rc_situations);
@@ -141,5 +152,24 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
         recreate();
+    }
+    private void firstTimeDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.level));
+        builder.setMessage(R.string.choose_level);
+        builder.setNegativeButton(R.string.first_level, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.setPositiveButton(R.string.second_level, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                editor.putString(getString(R.string.levelKey),"2");
+                editor.apply();
+            }
+        });
+        builder.show();
     }
 }

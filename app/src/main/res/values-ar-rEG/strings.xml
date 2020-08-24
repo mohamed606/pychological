@@ -21,4 +21,5 @@
     <string name="levelKey" translatable="false">Level</string>
     <string name="level">المستوى</string>
     <string name="language">اللغة</string>
+    <string name="choose_level">اختار مستواك</string>
 </resources>

@@ -23,5 +23,6 @@
     <string name="default_language" translatable="false">en</string>
     <string name="ar" translatable="false">ar</string>
     <string name="language_key" translatable="false">Local.Helper.Selected.Language</string>
+    <string name="choose_level">Choose your level</string>
 
 </resources>
