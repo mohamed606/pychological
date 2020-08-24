@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/theme"
-        android:icon="@drawable/ic_baseline_brightness_6_24"
-        app:showAsAction="always"
-        android:title="@string/theme" />
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
 </menu>

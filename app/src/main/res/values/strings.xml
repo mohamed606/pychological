@@ -11,5 +11,17 @@
     <string name="pd">Psychological degree</string>
     <string name="at">Alternative thought</string>
     <string name="save">Save</string>
-    <string name="theme">theme</string>
+    <string name="minimum_level" translatable="false">1</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_arabic" translatable="false">العربية</string>
+    <string name="settings">Settings</string>
+    <string name="first_level" translatable="false">1</string>
+    <string name="second_level" translatable="false">2</string>
+    <string name="levelKey" translatable="false">level</string>
+    <string name="level">Level</string>
+    <string name="language">Language</string>
+    <string name="default_language" translatable="false">en</string>
+    <string name="ar" translatable="false">ar</string>
+    <string name="language_key" translatable="false">Local.Helper.Selected.Language</string>
+
 </resources>

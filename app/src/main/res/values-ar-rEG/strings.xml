@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مواقف نفسية</string>
+    <string name="situation">موقف</string>
+    <string name="idea">فكرة</string>
+    <string name="emotion">انفعال</string>
+    <string name="behaviour">سلوك</string>
+    <string name="wrong_thinking">خطاء التفكير</string>
+    <string name="coent">الادلة المؤكدة للفكرة السلبية</string>
+    <string name="ceontP">الادلة الالمدحضة للفكرة السلبية</string>
+    <string name="tdob">مقدار الاعتقاد</string>
+    <string name="pd">المقدار النفسى</string>
+    <string name="at">فكرة بديلة</string>
+    <string name="save">حفظ</string>
+    <string name="minimum_level" translatable="false">1</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_arabic" translatable="false">العربية</string>
+    <string name="settings">اعدادات</string>
+    <string name="first_level" translatable="false">1</string>
+    <string name="second_level" translatable="false">2</string>
+    <string name="levelKey" translatable="false">Level</string>
+    <string name="level">المستوى</string>
+    <string name="language">اللغة</string>
+</resources>
