@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -96,10 +97,10 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     }
 
     private void allocateSituationRecycler() {
-        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        //DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         situationRecycler.setLayoutManager(new LinearLayoutManager(this));
         situationRecycler.setAdapter(adapter);
-        situationRecycler.addItemDecoration(decoration);
+       // situationRecycler.addItemDecoration(decoration);
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -117,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
 
     @Override
     public void goToDetailActivity(int position) {
-        Intent situationIntent = new Intent(MainActivity.this, SituationDetailActivity.class);
-        situationIntent.putExtra("level", getLevel());
+        Intent situationIntent = new Intent(MainActivity.this, AlternativeSituationDetailActivity.class);
+        //situationIntent.putExtra("level", getLevel());
         startActivity(situationIntent);
     }
 
