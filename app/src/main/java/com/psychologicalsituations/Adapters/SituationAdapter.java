@@ -13,7 +13,6 @@ import com.psychologicalsituations.Listeners.SituationClickListener;
 import com.psychologicalsituations.R;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class SituationAdapter extends RecyclerView.Adapter<SituationHolder> {
     private SituationClickListener situationClickListener;
     private DateFormat simpleDateFormat;
 
-    public SituationAdapter(SituationClickListener situationClickListener,DateFormat simpleDateFormat) {
+    public SituationAdapter(SituationClickListener situationClickListener, DateFormat simpleDateFormat) {
         this.situationClickListener = situationClickListener;
         this.simpleDateFormat = simpleDateFormat;
     }
@@ -43,7 +42,7 @@ public class SituationAdapter extends RecyclerView.Adapter<SituationHolder> {
     public void onBindViewHolder(@NonNull SituationHolder holder, int position) {
         PsychologicalSituation situation = situations.get(position);
         String date = simpleDateFormat.format(situation.getDate());
-        holder.getSituationTextView().setText(situation.getIdea());
+        holder.getSituationTextView().setText(situation.getSituation());
         holder.getDateTextView().setText(date);
     }
 
@@ -52,7 +51,7 @@ public class SituationAdapter extends RecyclerView.Adapter<SituationHolder> {
         return situations.size();
     }
 
-    public PsychologicalSituation getSituation(int position){
+    public PsychologicalSituation getSituation(int position) {
         return situations.get(position);
     }
 }

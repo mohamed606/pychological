@@ -18,10 +18,6 @@
         <activity
             android:name=".Activities.SettingsActivity"
             android:parentActivityName=".Activities.MainActivity" />
-        <activity
-            android:name=".Activities.SituationDetailActivity"
-            android:label="Details"
-            android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

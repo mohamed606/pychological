@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.psychologicalsituations.Helpers.LocalHelper;
-import com.psychologicalsituations.R;
 
 public class MainApplication extends Application {
     @Override

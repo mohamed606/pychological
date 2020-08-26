@@ -26,5 +26,8 @@
     <string name="choose_level">Choose your level</string>
     <string name="delete">Delete</string>
     <string name="delete_all">Delete All</string>
+    <string name="edit_situation">Edit Situation</string>
+    <string name="add_situation">Add New Situation</string>
+    <string name="edit">Edit </string>
 
 </resources>

@@ -1,18 +1,15 @@
 package com.psychologicalsituations.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.psychologicalsituations.R;
 
@@ -34,6 +31,7 @@ public class EditActivity extends AppCompatActivity {
             details.setText(intent.getStringExtra("details"));
             position = intent.getIntExtra("position", 0);
         }
+        setTitle(getString(R.string.edit)+" "+ title.getText());
     }
 
     @Override
@@ -57,7 +55,7 @@ public class EditActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlternativeSituationDetailActivity.class);
         intent.putExtra("details", details.getText().toString());
         intent.putExtra("position", position);
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

@@ -24,4 +24,7 @@
     <string name="choose_level">اختار مستواك</string>
     <string name="delete">مسح</string>
     <string name="delete_all">مسح الكل</string>
+    <string name="edit_situation">تعديل الموقف</string>
+    <string name="add_situation">اضاففة موقف جديد</string>
+    <string name="edit">تعديل </string>
 </resources>
