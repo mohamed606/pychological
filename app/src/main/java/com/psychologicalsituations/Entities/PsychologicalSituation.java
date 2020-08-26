@@ -26,16 +26,16 @@ public class PsychologicalSituation {
     private Date date;
 
     public PsychologicalSituation(String situation,String idea, String emotion, String behaviour, String wrongThinking, String ceont, String ceontP, double degreeOfBelief, double psychologicalDegree, String alternativeThought, Date date) {
-        this.situation = situation;
-        this.idea = idea;
-        this.emotion = emotion;
-        this.behaviour = behaviour;
-        this.wrongThinking = wrongThinking;
-        this.ceont = ceont;
-        this.ceontP = ceontP;
+        this.situation = (situation!=null && !situation.trim().isEmpty())?situation : "";
+        this.idea = (idea!=null && !idea.trim().isEmpty())?idea : "";
+        this.emotion = (emotion!=null && !emotion.trim().isEmpty())?emotion : "";
+        this.behaviour = (behaviour!=null && !behaviour.trim().isEmpty())?behaviour : "";
+        this.wrongThinking = (wrongThinking!=null && !wrongThinking.trim().isEmpty())?wrongThinking : "";
+        this.ceont = (ceont!=null && !ceont.trim().isEmpty())?ceont : "";
+        this.ceontP = (ceontP!=null && !ceontP.trim().isEmpty())?ceontP : "";
         this.degreeOfBelief = degreeOfBelief;
         this.psychologicalDegree = psychologicalDegree;
-        this.alternativeThought = alternativeThought;
+        this.alternativeThought = (alternativeThought!=null && !alternativeThought.trim().isEmpty())?alternativeThought : "";
         this.date = date;
     }
 
@@ -90,4 +90,5 @@ public class PsychologicalSituation {
     public String getSituation() {
         return situation;
     }
+
 }

@@ -32,6 +32,8 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-        situationClickListener.goToDetailActivity(getAdapterPosition());
+        if (RecyclerView.NO_POSITION != getAdapterPosition()) {
+            situationClickListener.goToDetailActivity(getAdapterPosition());
+        }
     }
 }

@@ -52,7 +52,7 @@ public class EditActivity extends AppCompatActivity {
     }
 
     private void saveDetail() {
-        Intent intent = new Intent(this, AlternativeSituationDetailActivity.class);
+        Intent intent = new Intent(this, SituationDetailActivity.class);
         intent.putExtra("details", details.getText().toString());
         intent.putExtra("position", position);
         setResult(RESULT_OK, intent);

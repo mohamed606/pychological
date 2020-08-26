@@ -21,7 +21,7 @@ import com.psychologicalsituations.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlternativeSituationDetailActivity extends AppCompatActivity implements SituationDetailClickListener {
+public class SituationDetailActivity extends AppCompatActivity implements SituationDetailClickListener {
     private RecyclerView recyclerView;
     private List<String> titles;
     private List<String> details;
@@ -29,11 +29,12 @@ public class AlternativeSituationDetailActivity extends AppCompatActivity implem
     private String userLevel;
     private static final int EDIT_RESULT_CODE = 2;
     private int situationId = -1;
-    private long situationDate = -1 ;
+    private long situationDate = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alternative_situation_detail);
+        setContentView(R.layout.activity_situation_detail);
         recyclerView = findViewById(R.id.details_recyclerView);
         setUpButton(getSupportActionBar());
         titles = new ArrayList<>();
@@ -52,7 +53,7 @@ public class AlternativeSituationDetailActivity extends AppCompatActivity implem
         if (getIntent() != null) {
             setTitle(getString(R.string.edit_situation));
             populateDetails(intent);
-        }else {
+        } else {
             setTitle(getString(R.string.add_situation));
             for (int i = 0; i < titles.size(); i++) {
                 details.add("");
@@ -114,15 +115,16 @@ public class AlternativeSituationDetailActivity extends AppCompatActivity implem
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == EDIT_RESULT_CODE) {
-            details.set(data.getIntExtra("position", 0), data.getStringExtra("details"));
-            adapter.notifyDataSetChanged();
+            int position = data.getIntExtra("position", 0);
+            details.set(position, data.getStringExtra("details"));
+            adapter.notifyItemChanged(position);
         }
     }
 
     private void returnResultToMain(int resultCode) {
         Intent intent = new Intent(this, MainActivity.class);
         if (resultCode == RESULT_OK) {
-            intent.putExtra("situationId",situationId);
+            intent.putExtra("situationId", situationId);
             intent.putExtra(getString(R.string.situation), details.get(0));
             intent.putExtra(getString(R.string.idea), details.get(1));
             intent.putExtra(getString(R.string.emotion), details.get(2));
@@ -133,7 +135,7 @@ public class AlternativeSituationDetailActivity extends AppCompatActivity implem
             intent.putExtra(getString(R.string.tdob), details.get(7));
             intent.putExtra(getString(R.string.pd), details.get(8));
             intent.putExtra(getString(R.string.at), details.get(9));
-            intent.putExtra("situationDate",situationDate);
+            intent.putExtra("situationDate", situationDate);
         }
         setResult(resultCode, intent);
         finish();
@@ -150,8 +152,8 @@ public class AlternativeSituationDetailActivity extends AppCompatActivity implem
         details.add(data.getStringExtra(getString(R.string.tdob)));
         details.add(data.getStringExtra(getString(R.string.pd)));
         details.add(data.getStringExtra(getString(R.string.at)));
-       situationId = data.getIntExtra("situationId",0);
-       situationDate = data.getLongExtra("situationDate",0);
+        situationId = data.getIntExtra("situationId", 0);
+        situationDate = data.getLongExtra("situationDate", 0);
     }
 
     @Override

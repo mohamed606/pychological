@@ -19,8 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.psychologicalsituations.Adapters.SituationAdapter;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
         adapter = new SituationAdapter(this, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
         situationViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(SituationViewModel.class);
         situationViewModel.getAllSituations().observe(this,
-                psychologicalSituations -> adapter.setSituations(psychologicalSituations)
+                psychologicalSituations -> adapter.submitList(psychologicalSituations)
         );
 
         allocateSituationRecycler();
@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent situationIntent = new Intent(MainActivity.this, AlternativeSituationDetailActivity.class);
+                Intent situationIntent = new Intent(MainActivity.this, SituationDetailActivity.class);
                 startActivityForResult(situationIntent, ADD_SITUATION_REQUEST_CODE);
             }
         });
     }
 
     private void allocateSituationRecycler() {
-        situationRecycler.setLayoutManager(new LinearLayoutManager(this));
+        situationRecycler.setLayoutManager( new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         situationRecycler.setAdapter(adapter);
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
 
     @Override
     public void goToDetailActivity(int position) {
-        Intent intent = new Intent(MainActivity.this, AlternativeSituationDetailActivity.class);
+        Intent intent = new Intent(MainActivity.this, SituationDetailActivity.class);
         PsychologicalSituation situation = adapter.getSituation(position);
         intent.putExtra("situationId", situation.getId());
         intent.putExtra(getString(R.string.situation), situation.getSituation());
@@ -180,10 +180,10 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
             String pdScale = data.getStringExtra(getString(R.string.pd));
             double tdob = 0;
             double pd = 0;
-            if(tdobScale != null && !tdobScale.trim().isEmpty()){
+            if (tdobScale != null && !tdobScale.trim().isEmpty()) {
                 tdob = Double.parseDouble(tdobScale);
             }
-            if(pdScale != null && !pdScale.trim().isEmpty()){
+            if (pdScale != null && !pdScale.trim().isEmpty()) {
                 pd = Double.parseDouble(pdScale);
             }
             PsychologicalSituation situation = new PsychologicalSituation(data.getStringExtra(getString(R.string.situation))
@@ -206,13 +206,13 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
             String pdScale = data.getStringExtra(getString(R.string.pd));
             double tdob = 0;
             double pd = 0;
-            if(tdobScale != null && !tdobScale.trim().isEmpty()){
+            if (tdobScale != null && !tdobScale.trim().isEmpty()) {
                 tdob = Double.parseDouble(tdobScale);
             }
-            if(pdScale != null && !pdScale.trim().isEmpty()){
+            if (pdScale != null && !pdScale.trim().isEmpty()) {
                 pd = Double.parseDouble(pdScale);
             }
-            Log.v("main",String.valueOf(tdob));
+            Log.v("main", String.valueOf(tdob));
             PsychologicalSituation situation = new PsychologicalSituation(data.getStringExtra(getString(R.string.situation))
                     , data.getStringExtra(getString(R.string.idea))
                     , data.getStringExtra(getString(R.string.emotion))
