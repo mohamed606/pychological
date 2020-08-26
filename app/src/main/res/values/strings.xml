@@ -24,5 +24,7 @@
     <string name="ar" translatable="false">ar</string>
     <string name="language_key" translatable="false">Local.Helper.Selected.Language</string>
     <string name="choose_level">Choose your level</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete All</string>
 
 </resources>

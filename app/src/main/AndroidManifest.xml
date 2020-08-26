@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.AlternativeSituationDetailActivity"></activity>
+        <activity
+            android:name=".Activities.AlternativeSituationDetailActivity"
+            android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.EditActivity"
             android:parentActivityName=".Activities.AlternativeSituationDetailActivity"/>
         <activity

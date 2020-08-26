@@ -1,6 +1,7 @@
 package com.psychologicalsituations.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,7 +57,8 @@ public class EditActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlternativeSituationDetailActivity.class);
         intent.putExtra("details", details.getText().toString());
         intent.putExtra("position", position);
-        startActivity(intent);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 
     private void setUpButton(ActionBar actionBar) {
@@ -64,4 +66,6 @@ public class EditActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
+
+
 }

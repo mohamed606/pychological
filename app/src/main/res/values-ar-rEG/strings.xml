@@ -22,4 +22,6 @@
     <string name="level">المستوى</string>
     <string name="language">اللغة</string>
     <string name="choose_level">اختار مستواك</string>
+    <string name="delete">مسح</string>
+    <string name="delete_all">مسح الكل</string>
 </resources>

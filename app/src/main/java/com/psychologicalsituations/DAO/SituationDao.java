@@ -26,6 +26,6 @@ public interface SituationDao {
     @Query("DELETE FROM situation_table")
     void deleteAll();
 
-    @Query("SELECT * FROM situation_table")
+    @Query("SELECT * FROM situation_table ORDER BY date DESC")
     LiveData<List<PsychologicalSituation>> getAllSituations();
 }

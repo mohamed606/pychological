@@ -13,6 +13,7 @@ import java.util.Date;
 public class PsychologicalSituation {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private String situation;
     private String idea;
     private String emotion;
     private String behaviour;
@@ -24,7 +25,8 @@ public class PsychologicalSituation {
     private String alternativeThought;
     private Date date;
 
-    public PsychologicalSituation(String idea, String emotion, String behaviour, String wrongThinking, String ceont, String ceontP, double degreeOfBelief, double psychologicalDegree, String alternativeThought, Date date) {
+    public PsychologicalSituation(String situation,String idea, String emotion, String behaviour, String wrongThinking, String ceont, String ceontP, double degreeOfBelief, double psychologicalDegree, String alternativeThought, Date date) {
+        this.situation = situation;
         this.idea = idea;
         this.emotion = emotion;
         this.behaviour = behaviour;
@@ -83,5 +85,9 @@ public class PsychologicalSituation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSituation() {
+        return situation;
     }
 }
