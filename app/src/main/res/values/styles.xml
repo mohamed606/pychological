@@ -5,6 +5,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">#000</item>
+        <item name="actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+    </style>
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_baseline_more_vert_24</item>
     </style>
     <style name="settingText" parent="TextAppearance.AppCompat.Medium">
         <!-- Customize your theme here. -->

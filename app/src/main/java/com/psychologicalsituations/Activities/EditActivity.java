@@ -23,7 +23,7 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         TextView title = findViewById(R.id.edit_title_tv);
         details = findViewById(R.id.edit_details_editTex);
-        ActionBarUtility.setUpButton(getSupportActionBar());
+        ActionBarUtility.setUpButton(getSupportActionBar(), R.drawable.ic_baseline_arrow_back_24);
         Intent intent = getIntent();
         if (intent != null) {
             title.setText(intent.getStringExtra("title"));

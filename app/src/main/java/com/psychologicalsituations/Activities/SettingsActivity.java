@@ -45,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         languageSummaryTextView = findViewById(R.id.language_summary_tv);
 
 
-        ActionBarUtility.setUpButton(getSupportActionBar());
+        ActionBarUtility.setUpButton(getSupportActionBar(),R.drawable.ic_baseline_arrow_back_24);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -80,6 +80,8 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         } else {
             hasLanguageChanged = false;
         }
+
+        setTitle(R.string.settings);
     }
 
     @Override

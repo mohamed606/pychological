@@ -28,4 +28,5 @@
     <string name="add_situation">اضاففة موقف جديد</string>
     <string name="edit">تعديل </string>
     <string name="cancel">الغاء</string>
+    <string name="situation_empty">الموقق لا يمكن ان يكون فارغ</string>
 </resources>

@@ -138,7 +138,7 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
     private void returnResultToMain(boolean isSaved) {
         if (isSaved) {
             if (details.get(0).trim().isEmpty()) {
-                Toast.makeText(this, "Situation can't be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.situation_empty, Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
