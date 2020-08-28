@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,11 +34,9 @@ import java.util.Date;
 import java.util.List;
 
 public class SituationDetailActivity extends AppCompatActivity implements SituationDetailClickListener {
-    private RecyclerView recyclerView;
     private List<String> titles;
     private List<String> details;
     private SituationDetailAdapter adapter;
-    private String userLevel;
     private static final int EDIT_RESULT_CODE = 2;
     private int situationId = -1;
     private long situationDate = -1;
@@ -51,7 +48,7 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situation_detail);
 
-        recyclerView = findViewById(R.id.details_recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.details_recyclerView);
 
         ActionBarUtility.setUpButton(getSupportActionBar(), R.drawable.ic_baseline_close_24);
 
@@ -140,8 +137,8 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
 
     private void returnResultToMain(boolean isSaved) {
         if (isSaved) {
-            if(details.get(0).trim().isEmpty()){
-                Toast.makeText(this,"Situation can't be empty",Toast.LENGTH_SHORT).show();
+            if (details.get(0).trim().isEmpty()) {
+                Toast.makeText(this, "Situation can't be empty", Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
@@ -212,7 +209,7 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
 
     private int getAdapterSize() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        userLevel = sharedPreferences.getString(getString(R.string.levelKey), "1");
+        String userLevel = sharedPreferences.getString(getString(R.string.levelKey), "1");
         int adapterSize;
         if (userLevel.equals("1")) {
             adapterSize = 4;
@@ -221,8 +218,9 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         }
         return adapterSize;
     }
-    private PsychologicalSituation getResultedSituation(){
-      PsychologicalSituation result =  new PsychologicalSituation(details.get(0),
+
+    private PsychologicalSituation getResultedSituation() {
+        PsychologicalSituation result = new PsychologicalSituation(details.get(0),
                 details.get(1),
                 details.get(2),
                 details.get(3),
@@ -233,16 +231,17 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
                 Double.parseDouble(details.get(8)),
                 details.get(9),
                 getDate());
-      if(situationId != -1){
-          result.setId(situationId);
-      }
-      return result;
+        if (situationId != -1) {
+            result.setId(situationId);
+        }
+        return result;
     }
-    private Date getDate(){
+
+    private Date getDate() {
         Date date;
-        if(situationDate == -1){
-            date  = new Date();
-        }else{
+        if (situationDate == -1) {
+            date = new Date();
+        } else {
             date = new Date(situationDate);
         }
         return date;

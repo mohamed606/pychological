@@ -21,8 +21,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:text="@string/level"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000"
+            android:textAppearance="@style/settingText"
             />
 
         <TextView
@@ -48,8 +47,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:text="@string/language"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000" />
+            android:textAppearance="@style/settingText"
+
+             />
 
         <TextView
             android:id="@+id/language_summary_tv"

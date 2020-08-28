@@ -14,7 +14,6 @@ import com.psychologicalsituations.R;
 import com.psychologicalsituations.Utilits.ActionBarUtility;
 
 public class EditActivity extends AppCompatActivity {
-    private TextView title;
     private EditText details;
     private int position;
 
@@ -22,7 +21,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        title = findViewById(R.id.edit_title_tv);
+        TextView title = findViewById(R.id.edit_title_tv);
         details = findViewById(R.id.edit_details_editTex);
         ActionBarUtility.setUpButton(getSupportActionBar());
         Intent intent = getIntent();

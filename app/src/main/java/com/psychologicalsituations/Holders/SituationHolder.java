@@ -17,6 +17,7 @@ import java.util.List;
 public class SituationHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView situationTextView;
     private TextView dateTextView;
+    private TextView timeTextView;
     private SituationClickListener situationClickListener;
     private List<PsychologicalSituation> situationList;
 
@@ -24,6 +25,7 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
         super(itemView);
         situationTextView = itemView.findViewById(R.id.situation_textView);
         dateTextView = itemView.findViewById(R.id.date_textView);
+        timeTextView = itemView.findViewById(R.id.time_textView);
         this.situationClickListener = situationClickListener;
         itemView.setOnClickListener(this);
         this.situationList = situationList;
@@ -32,7 +34,10 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public void bindData(PsychologicalSituation psychologicalSituation) {
         situationTextView.setText(psychologicalSituation.getSituation());
-        dateTextView.setText(DateUtilits.fromatDate(psychologicalSituation.getDate()));
+        String date = DateUtilits.fromatDate(psychologicalSituation.getDate());
+        String [] dateSplinted = date.split(" ");
+        dateTextView.setText(dateSplinted[0]);
+        timeTextView.setText(dateSplinted[1]);
     }
 
     @Override

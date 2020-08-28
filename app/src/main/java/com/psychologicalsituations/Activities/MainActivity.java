@@ -71,9 +71,13 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
                     adapter.submitList(psychologicalSituations);
                 }
         );
+
+        setTitle(R.string.app_name);
+
     }
 
     private void addClickListenerForFab() {
+
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

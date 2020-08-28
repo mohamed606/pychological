@@ -27,4 +27,5 @@
     <string name="edit_situation">تعديل الموقف</string>
     <string name="add_situation">اضاففة موقف جديد</string>
     <string name="edit">تعديل </string>
+    <string name="cancel">الغاء</string>
 </resources>
