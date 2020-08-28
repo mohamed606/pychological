@@ -1,5 +1,8 @@
 package com.psychologicalsituations.Entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -10,7 +13,7 @@ import java.util.Date;
 
 @Entity(tableName = "situation_table")
 @TypeConverters(DateConverter.class)
-public class PsychologicalSituation {
+public class PsychologicalSituation implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String situation;
@@ -38,6 +41,32 @@ public class PsychologicalSituation {
         this.alternativeThought = (alternativeThought!=null && !alternativeThought.trim().isEmpty())?alternativeThought : "";
         this.date = date;
     }
+
+    protected PsychologicalSituation(Parcel in) {
+        id = in.readInt();
+        situation = in.readString();
+        idea = in.readString();
+        emotion = in.readString();
+        behaviour = in.readString();
+        wrongThinking = in.readString();
+        ceont = in.readString();
+        ceontP = in.readString();
+        degreeOfBelief = in.readDouble();
+        psychologicalDegree = in.readDouble();
+        alternativeThought = in.readString();
+    }
+
+    public static final Creator<PsychologicalSituation> CREATOR = new Creator<PsychologicalSituation>() {
+        @Override
+        public PsychologicalSituation createFromParcel(Parcel in) {
+            return new PsychologicalSituation(in);
+        }
+
+        @Override
+        public PsychologicalSituation[] newArray(int size) {
+            return new PsychologicalSituation[size];
+        }
+    };
 
     public String getIdea() {
         return idea;
@@ -91,4 +120,23 @@ public class PsychologicalSituation {
         return situation;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(situation);
+        parcel.writeString(idea);
+        parcel.writeString(emotion);
+        parcel.writeString(behaviour);
+        parcel.writeString(wrongThinking);
+        parcel.writeString(ceont);
+        parcel.writeString(ceontP);
+        parcel.writeDouble(degreeOfBelief);
+        parcel.writeDouble(psychologicalDegree);
+        parcel.writeString(alternativeThought);
+    }
 }

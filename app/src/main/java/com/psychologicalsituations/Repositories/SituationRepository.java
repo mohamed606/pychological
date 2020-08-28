@@ -11,12 +11,11 @@ import com.psychologicalsituations.Entities.PsychologicalSituation;
 import java.util.List;
 
 public class SituationRepository {
-    private SituationDatabase situationDatabase;
     private SituationDao situationDao;
     private LiveData<List<PsychologicalSituation>> situations;
 
     public SituationRepository(Application application) {
-        situationDatabase = SituationDatabase.getInstance(application);
+        SituationDatabase situationDatabase = SituationDatabase.getInstance(application);
         situationDao = situationDatabase.situationDao();
         situations = situationDao.getAllSituations();
     }

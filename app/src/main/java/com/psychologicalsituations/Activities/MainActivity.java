@@ -3,11 +3,7 @@ package com.psychologicalsituations.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,14 +21,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.psychologicalsituations.Adapters.SituationAdapter;
 import com.psychologicalsituations.Entities.PsychologicalSituation;
-import com.psychologicalsituations.Helpers.LocalHelper;
 import com.psychologicalsituations.Listeners.SituationClickListener;
 import com.psychologicalsituations.R;
+import com.psychologicalsituations.Utilits.Constants;
+import com.psychologicalsituations.Utilits.LanguageUtilities;
+import com.psychologicalsituations.Utilits.RecyclerUtilities;
 import com.psychologicalsituations.ViewModels.SituationViewModel;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements SituationClickListener {
     private FloatingActionButton addFab;
@@ -41,52 +35,55 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private SituationViewModel situationViewModel;
-    private static final int ADD_SITUATION_REQUEST_CODE = 1;
-    private static final int UPDATE_SITUATION_REQUEST_CODE = 2;
     private static final int CHANGE_LANGUAGE_REQUEST_CODE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = sharedPreferences.edit();
-        String language = sharedPreferences.getString(getString(R.string.language_key), "en");
-        if (!isLanguageCorrect(language)) {
-            changeLanguage(language);
-        }
-        boolean isFirstTime = sharedPreferences.getBoolean("isFirstTime", true);
-        if (isFirstTime) {
-            editor.putBoolean("isFirstTime", false);
-            firstTimeDialog();
-            editor.apply();
-        }
+
         addFab = findViewById(R.id.add_situation_fab);
+
         situationRecycler = findViewById(R.id.rc_situations);
-        adapter = new SituationAdapter(this, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
-        situationViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(SituationViewModel.class);
-        situationViewModel.getAllSituations().observe(this,
-                psychologicalSituations -> adapter.submitList(psychologicalSituations)
-        );
 
-        allocateSituationRecycler();
+        adapter = new SituationAdapter(this);
+
+        situationViewModel = new ViewModelProvider(this).get(SituationViewModel.class);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        editor = sharedPreferences.edit();
+
+        LanguageUtilities.setUpActivityLanguage(this,sharedPreferences.getString(getString(R.string.language_key), "en"));
+
+        showFirstTimeDialog(sharedPreferences.getBoolean("isFirstTime", true));
+
         addClickListenerForFab();
-    }
 
+        RecyclerUtilities.setUpRecycler(situationRecycler,
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL),
+                adapter);
+
+        addItemTouchHelper();
+
+        situationViewModel.getAllSituations().observe(this,
+                psychologicalSituations -> {
+                    adapter.submitList(psychologicalSituations);
+                }
+        );
+    }
 
     private void addClickListenerForFab() {
         addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent situationIntent = new Intent(MainActivity.this, SituationDetailActivity.class);
-                startActivityForResult(situationIntent, ADD_SITUATION_REQUEST_CODE);
+                startActivity(situationIntent);
             }
         });
     }
 
-    private void allocateSituationRecycler() {
-        situationRecycler.setLayoutManager( new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        situationRecycler.setAdapter(adapter);
+    private void addItemTouchHelper() {
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -102,23 +99,10 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     }
 
     @Override
-    public void goToDetailActivity(int position) {
+    public void goToDetailActivity(PsychologicalSituation situation) {
         Intent intent = new Intent(MainActivity.this, SituationDetailActivity.class);
-        PsychologicalSituation situation = adapter.getSituation(position);
-        intent.putExtra("situationId", situation.getId());
-        intent.putExtra(getString(R.string.situation), situation.getSituation());
-        intent.putExtra(getString(R.string.idea), situation.getIdea());
-        intent.putExtra(getString(R.string.emotion), situation.getEmotion());
-        intent.putExtra(getString(R.string.behaviour), situation.getBehaviour());
-        intent.putExtra(getString(R.string.wrong_thinking), situation.getWrongThinking());
-        intent.putExtra(getString(R.string.coent), situation.getCeont());
-        intent.putExtra(getString(R.string.ceontP), situation.getCeontP());
-        intent.putExtra(getString(R.string.tdob), String.valueOf(situation.getDegreeOfBelief()));
-        intent.putExtra(getString(R.string.pd), String.valueOf(situation.getPsychologicalDegree()));
-        intent.putExtra(getString(R.string.at), situation.getAlternativeThought());
-        intent.putExtra("situationDate", situation.getDate().getTime());
-
-        startActivityForResult(intent, UPDATE_SITUATION_REQUEST_CODE);
+        intent.putExtra(Constants.INTENT_SITUATION, situation);
+        startActivity(intent);
     }
 
     @Override
@@ -139,17 +123,6 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
             return true;
         }
         return false;
-    }
-
-    private void changeLanguage(String language) {
-        LocalHelper.setLocale(this, language);
-        Locale myLocale = new Locale(language);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        recreate();
     }
 
     private void firstTimeDialog() {
@@ -175,63 +148,17 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_SITUATION_REQUEST_CODE && resultCode == RESULT_OK) {
-            String tdobScale = data.getStringExtra(getString(R.string.tdob));
-            String pdScale = data.getStringExtra(getString(R.string.pd));
-            double tdob = 0;
-            double pd = 0;
-            if (tdobScale != null && !tdobScale.trim().isEmpty()) {
-                tdob = Double.parseDouble(tdobScale);
-            }
-            if (pdScale != null && !pdScale.trim().isEmpty()) {
-                pd = Double.parseDouble(pdScale);
-            }
-            PsychologicalSituation situation = new PsychologicalSituation(data.getStringExtra(getString(R.string.situation))
-                    , data.getStringExtra(getString(R.string.idea))
-                    , data.getStringExtra(getString(R.string.emotion))
-                    , data.getStringExtra(getString(R.string.behaviour))
-                    , data.getStringExtra(getString(R.string.wrong_thinking))
-                    , data.getStringExtra(getString(R.string.coent))
-                    , data.getStringExtra(getString(R.string.ceontP))
-                    , tdob
-                    , pd
-                    , data.getStringExtra(getString(R.string.at))
-                    , new Date());
-            situationViewModel.insert(situation);
-        } else if (requestCode == CHANGE_LANGUAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == CHANGE_LANGUAGE_REQUEST_CODE && resultCode == RESULT_OK) {
             String language = sharedPreferences.getString(getString(R.string.language_key), "en");
-            changeLanguage(language);
-        } else if (requestCode == UPDATE_SITUATION_REQUEST_CODE && resultCode == RESULT_OK) {
-            String tdobScale = data.getStringExtra(getString(R.string.tdob));
-            String pdScale = data.getStringExtra(getString(R.string.pd));
-            double tdob = 0;
-            double pd = 0;
-            if (tdobScale != null && !tdobScale.trim().isEmpty()) {
-                tdob = Double.parseDouble(tdobScale);
-            }
-            if (pdScale != null && !pdScale.trim().isEmpty()) {
-                pd = Double.parseDouble(pdScale);
-            }
-            Log.v("main", String.valueOf(tdob));
-            PsychologicalSituation situation = new PsychologicalSituation(data.getStringExtra(getString(R.string.situation))
-                    , data.getStringExtra(getString(R.string.idea))
-                    , data.getStringExtra(getString(R.string.emotion))
-                    , data.getStringExtra(getString(R.string.behaviour))
-                    , data.getStringExtra(getString(R.string.wrong_thinking))
-                    , data.getStringExtra(getString(R.string.coent))
-                    , data.getStringExtra(getString(R.string.ceontP))
-                    , tdob
-                    , pd
-                    , data.getStringExtra(getString(R.string.at))
-                    , new Date(data.getLongExtra("situationDate", 0)));
-            situation.setId(data.getIntExtra("situationId", 0));
-            situationViewModel.update(situation);
+            LanguageUtilities.changeLanguage(this, language);
         }
     }
 
-    private boolean isLanguageCorrect(String language) {
-        Locale current = getResources().getConfiguration().locale;
-        String currentLanguage = current.getLanguage();
-        return currentLanguage.equals(language);
+    private void showFirstTimeDialog(boolean isFirstTime) {
+        if (isFirstTime) {
+            editor.putBoolean("isFirstTime", false);
+            firstTimeDialog();
+            editor.apply();
+        }
     }
 }

@@ -8,10 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.psychologicalsituations.R;
+import com.psychologicalsituations.Utilits.ActionBarUtility;
 
 public class EditActivity extends AppCompatActivity {
     private TextView title;
@@ -24,14 +24,14 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         title = findViewById(R.id.edit_title_tv);
         details = findViewById(R.id.edit_details_editTex);
-        setUpButton(getSupportActionBar());
+        ActionBarUtility.setUpButton(getSupportActionBar());
         Intent intent = getIntent();
         if (intent != null) {
             title.setText(intent.getStringExtra("title"));
             details.setText(intent.getStringExtra("details"));
             position = intent.getIntExtra("position", 0);
         }
-        setTitle(getString(R.string.edit)+" "+ title.getText());
+        setTitle(getString(R.string.edit) + " " + title.getText());
     }
 
     @Override
@@ -58,12 +58,4 @@ public class EditActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
-
-    private void setUpButton(ActionBar actionBar) {
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-
 }

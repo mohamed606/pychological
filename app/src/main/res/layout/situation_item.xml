@@ -17,7 +17,6 @@
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         android:background="?android:attr/selectableItemBackground">
-
         <TextView
             android:id="@+id/situation_textView"
             android:layout_width="wrap_content"
@@ -33,6 +32,7 @@
             android:layout_gravity="center"
             android:textColor="#BDBDBD"
             tools:text="25-2-2020, 12:00" />
+
     </LinearLayout>
 
 

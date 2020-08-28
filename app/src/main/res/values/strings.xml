@@ -29,5 +29,6 @@
     <string name="edit_situation">Edit Situation</string>
     <string name="add_situation">Add New Situation</string>
     <string name="edit">Edit </string>
+    <string name="cancel">cancel</string>
 
 </resources>
