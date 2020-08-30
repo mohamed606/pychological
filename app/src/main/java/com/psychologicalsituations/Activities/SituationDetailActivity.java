@@ -74,9 +74,9 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
 
         setUpTitles();
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             setUpDetailsAfterRotation(savedInstanceState);
-        }else{
+        } else {
             setUpDetails();
         }
 
@@ -87,7 +87,6 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
                 new StaggeredGridLayoutManager(OrientationUtils.getNumberOfColumns(this), StaggeredGridLayoutManager.VERTICAL),
                 adapter);
     }
-
 
 
     private void startAnimation(Bundle savedInstanceState) {
@@ -124,7 +123,7 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.numbers_dialog, null);
         CustomNumberPicker numberPicker = view.findViewById(R.id.degree_numberPicker);
-        if(position>10){
+        if (position > 10) {
             numberPicker.setMaxValue(100);
         }
         builder.setView(view)
@@ -159,6 +158,9 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
                 return true;
             case R.id.home:
                 returnResultToMain(false);
+                return true;
+            case R.id.share:
+                shareSituation();
                 return true;
             default:
                 return false;
@@ -244,7 +246,7 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         } else {
             setTitle(getString(R.string.add_situation));
             for (int i = 0; i < titles.size(); i++) {
-                if (i == 7 || i == 11 || i==12) {
+                if (i == 7 || i == 11 || i == 12) {
                     details.add("0");
                 } else {
                     details.add("");
@@ -252,6 +254,7 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
             }
         }
     }
+
     private void setUpDetailsAfterRotation(Bundle savedInstanceState) {
         details = savedInstanceState.getStringArrayList("details");
         setTitle(savedInstanceState.getString("title"));
@@ -321,5 +324,24 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         // make the view visible and start the animation
         rootLayout.setVisibility(View.VISIBLE);
         circularReveal.start();
+    }
+
+    private void shareSituation() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, makeString());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
+
+    private String makeString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        int adapterSize = getAdapterSize();
+        for (int i = 0; i < adapterSize; i++) {
+            stringBuilder.append(titles.get(i)).append(": ").append(details.get(i)).append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
