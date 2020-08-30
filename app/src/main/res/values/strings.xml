@@ -35,5 +35,9 @@
     <string name="newEmotion">New Emotion</string>
     <string name="newBehaviour">New Behaviour</string>
     <string name="share">Share</string>
+    <string name="add_button">Add button</string>
+    <string name="add_button_hint">You can click it when you want to add new situation</string>
+    <string name="this_is_situation_card">This is situation card</string>
+    <string name="situation_card_hint">You can swipe left or right to delete it or you can click it to edit the situation</string>
 
 </resources>
