@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".Activities.MainActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_situations"
         android:layout_width="match_parent"

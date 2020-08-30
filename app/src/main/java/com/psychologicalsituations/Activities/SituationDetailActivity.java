@@ -1,5 +1,6 @@
 package com.psychologicalsituations.Activities;
 
+import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +30,7 @@ import com.psychologicalsituations.Pickers.CustomNumberPicker;
 import com.psychologicalsituations.R;
 import com.psychologicalsituations.Utilits.ActionBarUtility;
 import com.psychologicalsituations.Utilits.Constants;
+import com.psychologicalsituations.Utilits.OrientationUtils;
 import com.psychologicalsituations.Utilits.RecyclerUtilities;
 import com.psychologicalsituations.ViewModels.SituationViewModel;
 
@@ -42,11 +47,20 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
     private long situationDate = -1;
     private SituationViewModel situationViewModel;
     private static final String TAG = "SituationDetailActivity";
+    private LinearLayout rootLayout;
+    private static final int ANIMATIONS_SPEED = 800;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        overridePendingTransition(R.anim.do_not_move, R.anim.do_not_move);
+
         setContentView(R.layout.activity_situation_detail);
+
+        rootLayout = findViewById(R.id.root_layout);
+
+        startAnimation(savedInstanceState);
 
         RecyclerView recyclerView = findViewById(R.id.details_recyclerView);
 
@@ -60,18 +74,41 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
 
         setUpTitles();
 
-        setUpDetails();
+        if(savedInstanceState != null){
+            setUpDetailsAfterRotation(savedInstanceState);
+        }else{
+            setUpDetails();
+        }
 
         adapter = new SituationDetailAdapter(titles, details, getAdapterSize(), this, this);
 
+
         RecyclerUtilities.setUpRecycler(recyclerView,
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL),
+                new StaggeredGridLayoutManager(OrientationUtils.getNumberOfColumns(this), StaggeredGridLayoutManager.VERTICAL),
                 adapter);
+    }
+
+
+
+    private void startAnimation(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            rootLayout.setVisibility(View.INVISIBLE);
+            ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
+            if (viewTreeObserver.isAlive()) {
+                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        circularRevealActivity();
+                        rootLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+            }
+        }
     }
 
     @Override
     public void goToEditActivity(int position) {
-        if (position != 7 && position != 8) {
+        if (position != 7 && position < 11) {
             Intent intent = new Intent(this, EditActivity.class);
             intent.putExtra("position", position);
             intent.putExtra("details", details.get(position));
@@ -87,6 +124,9 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.numbers_dialog, null);
         CustomNumberPicker numberPicker = view.findViewById(R.id.degree_numberPicker);
+        if(position>10){
+            numberPicker.setMaxValue(100);
+        }
         builder.setView(view)
                 .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
@@ -161,9 +201,12 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         details.add(situation.getWrongThinking());
         details.add(situation.getCeont());
         details.add(situation.getCeontP());
-        details.add(String.valueOf(situation.getDegreeOfBelief()));
-        details.add(String.valueOf(situation.getPsychologicalDegree()));
+        details.add(String.valueOf(situation.getCognitiveContinuum()));
         details.add(situation.getAlternativeThought());
+        details.add(situation.getNewEmotion());
+        details.add(situation.getNewBehaviour());
+        details.add(String.valueOf(situation.getDegreeOfBelief()));
+        details.add(String.valueOf(situation.getDegreeOfExecution()));
         situationId = situation.getId();
         Date date = situation.getDate();
         if (date != null) {
@@ -185,9 +228,12 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         titles.add(getString(R.string.wrong_thinking));
         titles.add(getString(R.string.coent));
         titles.add(getString(R.string.ceontP));
+        titles.add(getString(R.string.cognitiveContinuum));
+        titles.add(getString(R.string.at));
+        titles.add(getString(R.string.newEmotion));
+        titles.add(getString(R.string.newBehaviour));
         titles.add(getString(R.string.tdob));
         titles.add(getString(R.string.pd));
-        titles.add(getString(R.string.at));
     }
 
     private void setUpDetails() {
@@ -198,13 +244,24 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
         } else {
             setTitle(getString(R.string.add_situation));
             for (int i = 0; i < titles.size(); i++) {
-                if (i == 7 || i == 8) {
+                if (i == 7 || i == 11 || i==12) {
                     details.add("0");
                 } else {
                     details.add("");
                 }
             }
         }
+    }
+    private void setUpDetailsAfterRotation(Bundle savedInstanceState) {
+        details = savedInstanceState.getStringArrayList("details");
+        setTitle(savedInstanceState.getString("title"));
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("details", (ArrayList<String>) details);
+        outState.putString("title", String.valueOf(getTitle()));
     }
 
     private int getAdapterSize() {
@@ -228,8 +285,11 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
                 details.get(5),
                 details.get(6),
                 Double.parseDouble(details.get(7)),
-                Double.parseDouble(details.get(8)),
+                details.get(8),
                 details.get(9),
+                details.get(10),
+                Double.parseDouble(details.get(12)),
+                Double.parseDouble(details.get(12)),
                 getDate());
         if (situationId != -1) {
             result.setId(situationId);
@@ -245,5 +305,21 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
             date = new Date(situationDate);
         }
         return date;
+    }
+
+    private void circularRevealActivity() {
+
+
+        int cx = rootLayout.getWidth() / 2;
+        int cy = rootLayout.getHeight() / 2;
+
+        float finalRadius = Math.max(rootLayout.getWidth(), rootLayout.getHeight());
+        // create the animator for this view (the start radius is zero)
+        Animator circularReveal = ViewAnimationUtils.createCircularReveal(rootLayout, cx, cy, 0, finalRadius);
+        circularReveal.setDuration(ANIMATIONS_SPEED);
+
+        // make the view visible and start the animation
+        rootLayout.setVisibility(View.VISIBLE);
+        circularReveal.start();
     }
 }

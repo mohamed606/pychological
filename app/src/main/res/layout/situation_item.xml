@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:maxLines="3"
+                android:ellipsize="end"
                 tools:text="play" />
 
             <TextView

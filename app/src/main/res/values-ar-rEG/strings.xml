@@ -8,8 +8,8 @@
     <string name="wrong_thinking">خطاء التفكير</string>
     <string name="coent">الادلة المؤكدة للفكرة السلبية</string>
     <string name="ceontP">الادلة الالمدحضة للفكرة السلبية</string>
-    <string name="tdob">مقدار الاعتقاد</string>
-    <string name="pd">المقدار النفسى</string>
+    <string name="tdob">درجة الاعتقاد</string>
+    <string name="pd">درجة التنفيذ</string>
     <string name="at">فكرة بديلة</string>
     <string name="save">حفظ</string>
     <string name="minimum_level" translatable="false">1</string>
@@ -18,7 +18,6 @@
     <string name="settings">اعدادات</string>
     <string name="first_level" translatable="false">1</string>
     <string name="second_level" translatable="false">2</string>
-    <string name="levelKey" translatable="false">Level</string>
     <string name="level">المستوى</string>
     <string name="language">اللغة</string>
     <string name="choose_level">اختار مستواك</string>
@@ -29,4 +28,7 @@
     <string name="edit">تعديل </string>
     <string name="cancel">الغاء</string>
     <string name="situation_empty">الموقق لا يمكن ان يكون فارغ</string>
+    <string name="cognitiveContinuum">المتصل المعرفي</string>
+    <string name="newEmotion">مشاعر جديدة</string>
+    <string name="newBehaviour">سلوك جديد</string>
 </resources>

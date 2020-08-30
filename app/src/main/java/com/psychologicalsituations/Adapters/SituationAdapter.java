@@ -30,7 +30,7 @@ public class SituationAdapter extends ListAdapter<PsychologicalSituation, Situat
                     oldItem.getCeont().equals(newItem.getCeont()) &&
                     oldItem.getCeontP().equals(newItem.getCeontP()) &&
                     oldItem.getDegreeOfBelief() == newItem.getDegreeOfBelief() &&
-                    oldItem.getPsychologicalDegree() == newItem.getPsychologicalDegree() &&
+                    oldItem.getDegreeOfExecution() == newItem.getDegreeOfExecution() &&
                     oldItem.getAlternativeThought().equals(newItem.getAlternativeThought());
         }
     };
@@ -46,7 +46,7 @@ public class SituationAdapter extends ListAdapter<PsychologicalSituation, Situat
     @Override
     public SituationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.situation_item, parent, false);
-        return new SituationHolder(view, situationClickListener, getCurrentList());
+        return new SituationHolder(view, situationClickListener, getCurrentList(),parent.getContext());
     }
 
     @Override

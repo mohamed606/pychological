@@ -1,5 +1,6 @@
 package com.psychologicalsituations.Activities;
 
+import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,7 @@ import com.psychologicalsituations.Listeners.SituationClickListener;
 import com.psychologicalsituations.R;
 import com.psychologicalsituations.Utilits.Constants;
 import com.psychologicalsituations.Utilits.LanguageUtilities;
+import com.psychologicalsituations.Utilits.OrientationUtils;
 import com.psychologicalsituations.Utilits.RecyclerUtilities;
 import com.psychologicalsituations.ViewModels.SituationViewModel;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     private SharedPreferences.Editor editor;
     private SituationViewModel situationViewModel;
     private static final int CHANGE_LANGUAGE_REQUEST_CODE = 3;
+    Animator animator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
         addClickListenerForFab();
 
         RecyclerUtilities.setUpRecycler(situationRecycler,
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL),
+                new StaggeredGridLayoutManager(OrientationUtils.getNumberOfColumns(this), StaggeredGridLayoutManager.VERTICAL),
                 adapter);
 
         addItemTouchHelper();
@@ -72,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
                 }
         );
 
-        setTitle(R.string.app_name);
 
+        setTitle(R.string.app_name);
     }
 
     private void addClickListenerForFab() {

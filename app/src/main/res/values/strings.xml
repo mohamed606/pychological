@@ -8,7 +8,7 @@
     <string name="coent">Confirming evidence of negative thought</string>
     <string name="ceontP">Contradicting evidence of negative thought</string>
     <string name="tdob">The degree of belief</string>
-    <string name="pd">Psychological degree</string>
+    <string name="pd">Degree of execution</string>
     <string name="at">Alternative thought</string>
     <string name="save">Save</string>
     <string name="minimum_level" translatable="false">1</string>
@@ -29,7 +29,10 @@
     <string name="edit_situation">Edit Situation</string>
     <string name="add_situation">Add New Situation</string>
     <string name="edit">Edit </string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="situation_empty">Situation can\'t be empty</string>
+    <string name="cognitiveContinuum">Cognitive Continuum</string>
+    <string name="newEmotion">New Emotion</string>
+    <string name="newBehaviour">New Behaviour</string>
 
 </resources>

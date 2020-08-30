@@ -23,12 +23,15 @@ public class PsychologicalSituation implements Parcelable {
     private String wrongThinking;
     private String ceont;
     private String ceontP;
-    private double degreeOfBelief;
-    private double psychologicalDegree;
+    private double cognitiveContinuum;
     private String alternativeThought;
+    private String newEmotion;
+    private String newBehaviour;
+    private double degreeOfBelief;
+    private double degreeOfExecution;
     private Date date;
 
-    public PsychologicalSituation(String situation,String idea, String emotion, String behaviour, String wrongThinking, String ceont, String ceontP, double degreeOfBelief, double psychologicalDegree, String alternativeThought, Date date) {
+    public PsychologicalSituation(String situation, String idea, String emotion, String behaviour, String wrongThinking, String ceont, String ceontP,double cognitiveContinuum, String alternativeThought, String newEmotion, String newBehaviour,double degreeOfBelief , double degreeOfExecution, Date date) {
         this.situation = (situation!=null && !situation.trim().isEmpty())?situation : "";
         this.idea = (idea!=null && !idea.trim().isEmpty())?idea : "";
         this.emotion = (emotion!=null && !emotion.trim().isEmpty())?emotion : "";
@@ -37,9 +40,12 @@ public class PsychologicalSituation implements Parcelable {
         this.ceont = (ceont!=null && !ceont.trim().isEmpty())?ceont : "";
         this.ceontP = (ceontP!=null && !ceontP.trim().isEmpty())?ceontP : "";
         this.degreeOfBelief = degreeOfBelief;
-        this.psychologicalDegree = psychologicalDegree;
+        this.degreeOfExecution = degreeOfExecution;
         this.alternativeThought = (alternativeThought!=null && !alternativeThought.trim().isEmpty())?alternativeThought : "";
         this.date = date;
+        this.cognitiveContinuum = cognitiveContinuum;
+        this.newEmotion = (newEmotion!=null && !newEmotion.trim().isEmpty())?newEmotion : "";;
+        this.newBehaviour = (newBehaviour!=null && !newBehaviour.trim().isEmpty())?newBehaviour : "";;
     }
 
     protected PsychologicalSituation(Parcel in) {
@@ -52,7 +58,7 @@ public class PsychologicalSituation implements Parcelable {
         ceont = in.readString();
         ceontP = in.readString();
         degreeOfBelief = in.readDouble();
-        psychologicalDegree = in.readDouble();
+        degreeOfExecution = in.readDouble();
         alternativeThought = in.readString();
     }
 
@@ -96,8 +102,8 @@ public class PsychologicalSituation implements Parcelable {
         return degreeOfBelief;
     }
 
-    public double getPsychologicalDegree() {
-        return psychologicalDegree;
+    public double getDegreeOfExecution() {
+        return degreeOfExecution;
     }
 
     public String getAlternativeThought() {
@@ -136,7 +142,19 @@ public class PsychologicalSituation implements Parcelable {
         parcel.writeString(ceont);
         parcel.writeString(ceontP);
         parcel.writeDouble(degreeOfBelief);
-        parcel.writeDouble(psychologicalDegree);
+        parcel.writeDouble(degreeOfExecution);
         parcel.writeString(alternativeThought);
+    }
+
+    public double getCognitiveContinuum() {
+        return cognitiveContinuum;
+    }
+
+    public String getNewEmotion() {
+        return newEmotion;
+    }
+
+    public String getNewBehaviour() {
+        return newBehaviour;
     }
 }
