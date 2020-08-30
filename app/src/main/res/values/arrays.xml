@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="setting_levels">
+        <item>@string/first_level</item>
+        <item>@string/second_level</item>
+    </string-array>
+    <string-array name="setting_language_values">
+        <item>@string/default_language</item>
+        <item>@string/ar</item>
+    </string-array>
+    <string-array name="setting_language_entries">
+        <item>@string/language_english</item>
+        <item>@string/language_arabic</item>
+    </string-array>
+</resources>

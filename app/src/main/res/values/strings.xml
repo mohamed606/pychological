@@ -3,13 +3,36 @@
     <string name="situation">Situation</string>
     <string name="idea">Idea</string>
     <string name="emotion">Emotion</string>
-    <string name="behaviour">behaviour</string>
+    <string name="behaviour">Behaviour</string>
     <string name="wrong_thinking">Wrong thinking</string>
     <string name="coent">Confirming evidence of negative thought</string>
     <string name="ceontP">Contradicting evidence of negative thought</string>
     <string name="tdob">The degree of belief</string>
-    <string name="pd">Psychological degree</string>
+    <string name="pd">Degree of execution</string>
     <string name="at">Alternative thought</string>
     <string name="save">Save</string>
-    <string name="theme">theme</string>
+    <string name="minimum_level" translatable="false">1</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_arabic" translatable="false">العربية</string>
+    <string name="settings">Settings</string>
+    <string name="first_level" translatable="false">1</string>
+    <string name="second_level" translatable="false">2</string>
+    <string name="levelKey" translatable="false">level</string>
+    <string name="level">Level</string>
+    <string name="language">Language</string>
+    <string name="default_language" translatable="false">en</string>
+    <string name="ar" translatable="false">ar</string>
+    <string name="language_key" translatable="false">Local.Helper.Selected.Language</string>
+    <string name="choose_level">Choose your level</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete All</string>
+    <string name="edit_situation">Edit Situation</string>
+    <string name="add_situation">Add New Situation</string>
+    <string name="edit">Edit </string>
+    <string name="cancel">Cancel</string>
+    <string name="situation_empty">Situation can\'t be empty</string>
+    <string name="cognitiveContinuum">Cognitive Continuum</string>
+    <string name="newEmotion">New Emotion</string>
+    <string name="newBehaviour">New Behaviour</string>
+
 </resources>
