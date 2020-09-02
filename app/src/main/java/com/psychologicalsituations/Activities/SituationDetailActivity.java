@@ -192,6 +192,10 @@ public class SituationDetailActivity extends AppCompatActivity implements Situat
             }
         }
         finish();
+        if(getIntent().hasExtra("home")){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void populateDetails(Intent data) {

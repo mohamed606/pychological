@@ -1,0 +1,24 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/add_home_shortcut"
+        android:shortcutId="addSituation"
+        android:shortcutShortLabel="@string/add_situation"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.psychologicalsituations.Activities.SituationDetailActivity"
+            android:targetPackage="com.psychologicalsituations">
+            <extra
+                android:name="home"
+                android:value="yes" />
+        </intent>
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <!-- Specify more shortcuts here. -->
+</shortcuts>
