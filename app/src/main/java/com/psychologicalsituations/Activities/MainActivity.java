@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
                 .textColor(R.color.black)
                 .textTypeface(Typeface.SANS_SERIF)
                 .drawShadow(true)
-                .cancelable(true)
+                .cancelable(false)
                 .transparentTarget(true)
                 .targetRadius(60)  ;
     }
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
                 .textColor(R.color.black)
                 .textTypeface(Typeface.SANS_SERIF)
                 .drawShadow(true)
-                .cancelable(true)
+                .cancelable(false)
                 .transparentTarget(true)
                 .targetRadius(80) ;
     }
