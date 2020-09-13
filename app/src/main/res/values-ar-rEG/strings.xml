@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">مواقف نفسية</string>
+    <string name="app_name">السجل اليومي للافكار المختلة وظيفيا</string>
     <string name="situation">موقف</string>
     <string name="idea">فكرة</string>
     <string name="emotion">انفعال</string>
     <string name="behaviour">سلوك</string>
     <string name="wrong_thinking">خطاء التفكير</string>
     <string name="coent">الادلة المؤكدة للفكرة السلبية</string>
-    <string name="ceontP">الادلة الالمدحضة للفكرة السلبية</string>
+    <string name="ceontP">الادلة المدحضة للفكرة السلبية</string>
     <string name="tdob">درجة الاعتقاد</string>
     <string name="pd">درجة التنفيذ</string>
     <string name="at">فكرة بديلة</string>

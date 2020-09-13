@@ -35,7 +35,6 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
 
 
     public void bindData(PsychologicalSituation psychologicalSituation) {
-        Log.v("shit","target");
         situationTextView.setText(psychologicalSituation.getSituation());
         String date = DateUtilities.formatDate(psychologicalSituation.getDate(),context.getResources().getConfiguration().locale);
         String [] dateSplinted = date.split(" ");
@@ -47,7 +46,6 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
     public void onClick(View view) {
         if (RecyclerView.NO_POSITION != getAdapterPosition()) {
             PsychologicalSituation situation = situationList.get(getAdapterPosition());
-            Log.v("date", String.valueOf(situation.getDate()));
             situationClickListener.goToDetailActivity(situation);
         }
     }
