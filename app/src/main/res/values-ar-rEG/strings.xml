@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">مواقف نفسية</string>
+    <string name="app_name">السجل اليومي للافكار المختلة وظيفيا</string>
     <string name="situation">موقف</string>
     <string name="idea">فكرة</string>
     <string name="emotion">انفعال</string>
     <string name="behaviour">سلوك</string>
     <string name="wrong_thinking">خطاء التفكير</string>
     <string name="coent">الادلة المؤكدة للفكرة السلبية</string>
-    <string name="ceontP">الادلة الالمدحضة للفكرة السلبية</string>
+    <string name="ceontP">الادلة المدحضة للفكرة السلبية</string>
     <string name="tdob">درجة الاعتقاد</string>
     <string name="pd">درجة التنفيذ</string>
     <string name="at">فكرة بديلة</string>
@@ -31,4 +31,9 @@
     <string name="cognitiveContinuum">المتصل المعرفي</string>
     <string name="newEmotion">مشاعر جديدة</string>
     <string name="newBehaviour">سلوك جديد</string>
+    <string name="share">Share</string>
+    <string name="add_button">زر الاضافة</string>
+    <string name="add_button_hint">تستطيع الضغط علي هذا الزر اذا اردت اضافة موقف جديد</string>
+    <string name="this_is_situation_card">هذه كرت موقف</string>
+    <string name="situation_card_hint">تستطيع ان تسحبه الي اليمين او اليسار اذا اردت ان تمسحه او ان تضغط عليه اذا اردت تعديل الموقف</string>
 </resources>

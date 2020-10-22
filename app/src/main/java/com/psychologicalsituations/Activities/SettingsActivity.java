@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
@@ -182,7 +181,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     }
 
     private void setUpTheLevelRadioButtons(String level) {
-        Log.v("level",level);
         RadioButton firstLevelRadioButton = levelRadioGroup.findViewById(R.id.first_Level_radioButton);
         RadioButton secondLevelRadioButton = levelRadioGroup.findViewById(R.id.second_level_radioButton);
         if (level.equals("1")) {

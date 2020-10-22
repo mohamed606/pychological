@@ -1,9 +1,9 @@
 package com.psychologicalsituations.Activities;
 
-import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,12 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.psychologicalsituations.Adapters.SituationAdapter;
 import com.psychologicalsituations.Entities.PsychologicalSituation;
@@ -38,8 +41,7 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
     private SharedPreferences.Editor editor;
     private SituationViewModel situationViewModel;
     private static final int CHANGE_LANGUAGE_REQUEST_CODE = 3;
-    Animator animator;
-
+    private CardView cardView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
         addFab = findViewById(R.id.add_situation_fab);
 
         situationRecycler = findViewById(R.id.rc_situations);
+
+        cardView = findViewById(R.id.card);
 
         adapter = new SituationAdapter(this);
 
@@ -58,9 +62,15 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
         editor = sharedPreferences.edit();
 
         LanguageUtilities.setUpActivityLanguage(this,sharedPreferences.getString(getString(R.string.language_key), "en"));
-
-        showFirstTimeDialog(sharedPreferences.getBoolean("isFirstTime", true));
-
+        boolean isFirstTime = sharedPreferences.getBoolean("isFirstTime", true);
+        showFirstTimeDialog(isFirstTime);
+        showFirstTimeHint(isFirstTime);
+        if(isFirstTime){
+            editor.putBoolean("isFirstTime", false);
+            editor.apply();
+        }else {
+            cardView.setVisibility(View.GONE);
+        }
         addClickListenerForFab();
 
         RecyclerUtilities.setUpRecycler(situationRecycler,
@@ -74,9 +84,13 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
                     adapter.submitList(psychologicalSituations);
                 }
         );
-
-
         setTitle(R.string.app_name);
+    }
+
+    private void showFirstTimeHint(boolean isFirstTime) {
+        if(isFirstTime){
+            startApplicationHint();
+        }
     }
 
     private void addClickListenerForFab() {
@@ -163,9 +177,56 @@ public class MainActivity extends AppCompatActivity implements SituationClickLis
 
     private void showFirstTimeDialog(boolean isFirstTime) {
         if (isFirstTime) {
-            editor.putBoolean("isFirstTime", false);
             firstTimeDialog();
-            editor.apply();
         }
+    }
+    private void startApplicationHint(){
+        TapTarget forCard = createTapTargetForCard();
+        new TapTargetSequence(this).targets(createTapTargetForFab(),forCard).listener(new TapTargetSequence.Listener() {
+            @Override
+            public void onSequenceFinish() {
+
+            }
+            @Override
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                if(lastTarget == forCard && targetClicked){
+                    cardView.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+
+            }
+        }).start();
+    }
+    private TapTarget createTapTargetForFab(){
+       return TapTarget.forView(addFab, getString(R.string.add_button), getString(R.string.add_button_hint))
+                // All options below are optional
+                .outerCircleColor(R.color.blue)
+                .outerCircleAlpha(0.96f)
+                .targetCircleColor(R.color.white)
+                .titleTextSize(20)
+                .descriptionTextSize(10)
+                .textColor(R.color.black)
+                .textTypeface(Typeface.SANS_SERIF)
+                .drawShadow(true)
+                .cancelable(false)
+                .transparentTarget(true)
+                .targetRadius(60)  ;
+    }
+    private TapTarget createTapTargetForCard(){
+        return  TapTarget.forView(cardView, getString(R.string.this_is_situation_card), getString(R.string.situation_card_hint))
+                // All options below are optional
+                .outerCircleColor(R.color.blue)
+                .outerCircleAlpha(0.96f)
+                .targetCircleColor(R.color.white)
+                .titleTextSize(20)
+                .descriptionTextSize(10)
+                .textColor(R.color.black)
+                .textTypeface(Typeface.SANS_SERIF)
+                .drawShadow(true)
+                .cancelable(false)
+                .transparentTarget(true)
+                .targetRadius(80) ;
     }
 }

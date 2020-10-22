@@ -46,7 +46,7 @@ public class SituationAdapter extends ListAdapter<PsychologicalSituation, Situat
     @Override
     public SituationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.situation_item, parent, false);
-        return new SituationHolder(view, situationClickListener, getCurrentList(),parent.getContext());
+        return new SituationHolder(view, situationClickListener, getCurrentList(), parent.getContext());
     }
 
     @Override

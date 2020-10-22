@@ -2,8 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id = "@+id/share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_baseline_share_24"
+        app:showAsAction="always"
+
+        />
+    <item
         android:id="@+id/save"
         android:icon="@drawable/ic_baseline_check_24"
         android:title="@string/save"
         app:showAsAction="always" />
+
 </menu>

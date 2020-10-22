@@ -22,7 +22,6 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
     private SituationClickListener situationClickListener;
     private List<PsychologicalSituation> situationList;
     private Context context;
-
     public SituationHolder(@NonNull View itemView, SituationClickListener situationClickListener, List<PsychologicalSituation> situationList, Context context) {
         super(itemView);
         situationTextView = itemView.findViewById(R.id.situation_textView);
@@ -37,7 +36,6 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public void bindData(PsychologicalSituation psychologicalSituation) {
         situationTextView.setText(psychologicalSituation.getSituation());
-        Log.v("oh","yea");
         String date = DateUtilities.formatDate(psychologicalSituation.getDate(),context.getResources().getConfiguration().locale);
         String [] dateSplinted = date.split(" ");
         dateTextView.setText(dateSplinted[0]);
@@ -48,7 +46,6 @@ public class SituationHolder extends RecyclerView.ViewHolder implements View.OnC
     public void onClick(View view) {
         if (RecyclerView.NO_POSITION != getAdapterPosition()) {
             PsychologicalSituation situation = situationList.get(getAdapterPosition());
-            Log.v("date", String.valueOf(situation.getDate()));
             situationClickListener.goToDetailActivity(situation);
         }
     }
